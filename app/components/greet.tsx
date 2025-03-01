@@ -1,4 +1,8 @@
 export const Greet = () => {
     console.log('Greet component');
-    return <h1>Greet component</h1>;
+    return (
+    <div className="bg-gray-800 text-white p-4 rounded-lg shadow-md">
+     <h1 className="text-6xl">Welcome to my Website!</h1>
+    </div>
+    );
 };

@@ -15,7 +15,7 @@ export const Navigation = () => {
         About
       </Link>
 
-      <Link href="/products/1" className={pathname.startsWith("/products/1") ? "font-bold mr-4" : "text-blue-500 mr-4"}>
+      <Link href="/bosses" className={pathname === "/bosses" ? "font-bold mr-4" : "text-blue-500 mr-4"}>
         Bosses
       </Link>
     </nav>
