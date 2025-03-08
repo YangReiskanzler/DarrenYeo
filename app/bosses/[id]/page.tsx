@@ -1,56 +1,51 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-import Image from "next/image";
+import { notFound } from "next/navigation";
 
 async function getBoss(id: string) {
   const res = await fetch(`https://eldenring.fanapis.com/api/bosses/${id}`);
   const data = await res.json();
+
+  if (!data.data) return null;
   return data.data;
 }
 
-export default function BossPage() {
-  const params = useParams();
-  const [boss, setBoss] = useState<any>(null);
-  const router = useRouter();
-
-  useEffect(() => {
-    async function fetchData() {
-      if (typeof params.id === "string") {
-        const data = await getBoss(params.id);
-        setBoss(data);
-      }
-    }
-    fetchData();
-  }, [params.id]);
+export default async function BossPage({ params }: { params: { id: string } }) {
+  const boss = await getBoss(params.id);
 
   if (!boss) {
-    return <div>Loading...</div>;
+    notFound();
   }
 
   return (
-    <div>
-      <button
-        onClick={() => router.push("/bosses")}
-        className="bg-amber-50 text-white p-2 rounded-md"
-      >
-      <Image src="/back-arrow-icon.png" alt="Back" width={30} height={30} />
-      </button>
-      <div className= "bg-gray-800 rounded-lg shadow-md container mx-auto">
-      <h1 className="text-4xl font-bold mb-6 mt-6 text-center ">{boss.name}</h1>
+    <div className="font-serif">
+      <div className="flex flex-col bg-black/80 rounded-lg shadow-md border-2 border-gray-800 container mx-auto mt-4 mb-4">
+        <h1 className="text-4xl font-bold mb-4 mt-6 text-center">
+          {boss.name}
+        </h1>
       </div>
-      <div className="container mx-auto">
-        <div
-          key={boss.id}
-          className="bg-gray-800 text-white p-4 rounded-lg shadow-md"
-        >
+      <div
+        key={boss.id}
+        className="container mx-auto bg-black/80 text-white p-4 rounded-lg shadow-md border-2 border-gray-800"
+      >
+        <div className="p-4 rounded-lg shadow-md flex items-center justify-center mb-4">
           <img
             src={boss.image}
             alt={boss.name}
-            className="w-100 h-100 object-cover rounded-md"
+            className="w-130 h-100 rounded-md"
           />
-          <p className="text-sm mt-1">{boss.description}</p>
+        </div>
+        <div className="p-4 rounded-lg shadow-md flex flex-col gap-4 mt-4">
+          <p className="text-xl mt-1 flex gap-4">
+            <span className="font-bold">Description:</span> {boss.description}
+          </p>
+          <p className="text-xl mt-1 flex gap-4">
+            <span className="font-bold">Location:</span> {boss.location}
+          </p>
+          <p className="text-xl mt-1 flex gap-4">
+            <span className="font-bold">Drops:</span> {boss.drops}
+          </p>
+          <p className="text-xl mt-1 flex gap-4">
+            <span className="font-bold">HealthPoints:</span> {boss.healthPoints}
+          </p>
         </div>
       </div>
     </div>

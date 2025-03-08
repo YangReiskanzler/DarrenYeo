@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="h-screen flex flex-col">
-        <header className="bg-slate-900 text-white p-4 text-center">
+        <header className="bg-slate-900 text-white p-4 text-center ">
           <Navigation />
         </header>
         <main className="flex-grow">{children}</main>
