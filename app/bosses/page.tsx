@@ -28,10 +28,9 @@ export default function bosses() {
   return (
     <div>
       <h1 className="text-4xl font-bold mb-4 mt-4 rounded-lg shadow-md flex flex-row mx-auto text-center gap-16">
-        <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />{" "}
+        <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         Elden Ring Bosses
       </h1>
-
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
         {filteredBosses.map((boss: any) => (
           <div
