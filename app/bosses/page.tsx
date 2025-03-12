@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Pagination from "../components/pagination";
+import Search from "../components/search";
 
 export default function bosses() {
   const [bosses, setBosses] = useState<any[]>([]);
   const [page, setPage] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -19,13 +21,19 @@ export default function bosses() {
     fetchData();
   }, [page]);
 
+  const filteredBosses = bosses.filter((boss) =>
+    boss.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div>
-      <h1 className="text-4xl font-bold mb-4 mt-4 rounded-lg shadow-md flex flex-col mx-auto text-center">
+      <h1 className="text-4xl font-bold mb-4 mt-4 rounded-lg shadow-md flex flex-row mx-auto text-center gap-16">
+        <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />{" "}
         Elden Ring Bosses
       </h1>
+
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-        {bosses.map((boss: any) => (
+        {filteredBosses.map((boss: any) => (
           <div
             key={boss.id}
             className="bg-black/80 border-2 border-gray-700 ml-1 mr-1 text-white p-2 rounded-lg shadow-md text-center"
@@ -41,31 +49,7 @@ export default function bosses() {
           </div>
         ))}
       </div>
-      <div className="flex flex-row justify-center mt-15 gap-4">
-        <button
-          onClick={() => setPage(page - 1)}
-          disabled={page === 0}
-          className="flex px-4 py-2 bg-white  rounded hover:bg-blue-500 disabled:bg-gray-400"
-        >
-          <Image
-            src="/back-arrow-icon.png"
-            alt="Previous"
-            width={24}
-            height={24}
-          />
-        </button>
-        <button
-          onClick={() => setPage(page + 1)}
-          className="flex px-4 py-2 bg-white  rounded hover:bg-blue-500 disabled:bg-gray-400"
-        >
-          <Image
-            src="/front-arrow-icon.png"
-            alt="Next"
-            width={24}
-            height={24}
-          />
-        </button>
-      </div>
+      <Pagination page={page} setPage={setPage} />
     </div>
   );
 }
