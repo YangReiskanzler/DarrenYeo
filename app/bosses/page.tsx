@@ -21,18 +21,22 @@ export default function bosses() {
     fetchData();
   }, [page]);
 
-  const filteredBosses = bosses.filter((boss) =>
-    boss.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const handleSearch = async () => {
+    const res = await fetch(
+      `https://eldenring.fanapis.com/api/bosses?limit=18&name=${searchQuery}`
+    );
+    const data = await res.json();
+    setBosses(data.data);
+  }
 
   return (
     <div>
       <h1 className="text-4xl font-bold mb-4 mt-4 rounded-lg shadow-md flex flex-row mx-auto text-center gap-16">
-        <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} onSearch={handleSearch} />
         Elden Ring Bosses
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-        {filteredBosses.map((boss: any) => (
+        {bosses.map((boss: any) => (
           <div
             key={boss.id}
             className="bg-black/80 border-2 border-gray-700 ml-1 mr-1 text-white p-2 rounded-lg shadow-md text-center"
