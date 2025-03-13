@@ -13,7 +13,7 @@ export default function bosses() {
   useEffect(() => {
     async function fetchData() {
       const res = await fetch(
-        `https://eldenring.fanapis.com/api/bosses?limit=18&page=${page}`
+        `https://eldenring.fanapis.com/api/bosses?limit=15&page=${page}`
       );
       const data = await res.json();
       setBosses(data.data);
@@ -23,19 +23,26 @@ export default function bosses() {
 
   const handleSearch = async () => {
     const res = await fetch(
-      `https://eldenring.fanapis.com/api/bosses?limit=18&name=${searchQuery}`
+      `https://eldenring.fanapis.com/api/bosses?limit=15w&name=${searchQuery}`
     );
     const data = await res.json();
     setBosses(data.data);
-  }
+  };
 
   return (
     <div>
-      <h1 className="text-4xl font-bold mb-4 mt-4 rounded-lg shadow-md flex flex-row mx-auto text-center gap-16">
-        <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} onSearch={handleSearch} />
+      <div className="mt-4">
+        <Search
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          onSearch={handleSearch}
+        />
+      </div>
+      <h1 className="text-4xl font-bold flex flex-row items-center justify-center text-center mb-2  ">
         Elden Ring Bosses
       </h1>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
         {bosses.map((boss: any) => (
           <div
             key={boss.id}

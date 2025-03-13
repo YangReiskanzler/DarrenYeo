@@ -1,4 +1,7 @@
+
+
 import { notFound } from "next/navigation";
+import HomeButton from "../../components/homeButton";
 
 async function getBoss(id: string) {
   const res = await fetch(`https://eldenring.fanapis.com/api/bosses/${id}`);
@@ -16,7 +19,7 @@ export default async function BossPage({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="font-serif">
+    <div>
       <div className="flex flex-col bg-black/80 rounded-lg shadow-md border-2 border-gray-800 container mx-auto mt-4 mb-4">
         <h1 className="text-4xl font-bold mb-4 mt-6 text-center">
           {boss.name}
@@ -48,6 +51,7 @@ export default async function BossPage({ params }: { params: { id: string } }) {
           </p>
         </div>
       </div>
+      <HomeButton />
     </div>
   );
 }

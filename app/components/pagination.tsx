@@ -9,7 +9,7 @@ interface PaginationProps {
 
 export default function Pagination({ page, setPage }: PaginationProps) {
   return (
-    <div className="fixed bottom-20 left-0 right-0 flex flex-row justify-center mt-15 gap-4">
+    <div className=" flex flex-row justify-center mt-10 mb-10 gap-4">
       <button
         onClick={() => setPage(page - 1)}
         disabled={page === 0}
