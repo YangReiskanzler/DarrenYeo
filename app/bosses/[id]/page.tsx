@@ -1,9 +1,18 @@
 
-
 import { notFound } from "next/navigation";
 import HomeButton from "../../components/homeButton";
 
-async function getBoss(id: string) {
+interface Boss {
+  id: string;
+  name: string;
+  description: string;
+  location: string;
+  drops: string;
+  healthPoints: number;
+  image: string;
+}
+
+async function getBoss(id: string): Promise<Boss | null> {
   const res = await fetch(`https://eldenring.fanapis.com/api/bosses/${id}`);
   const data = await res.json();
 
@@ -12,7 +21,7 @@ async function getBoss(id: string) {
 }
 
 export default async function BossPage({ params }: { params: { id: string } }) {
-  const boss = await getBoss(params.id);
+  const boss = await getBoss(params.id).catch(() => null);
 
   if (!boss) {
     notFound();
