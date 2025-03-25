@@ -6,7 +6,7 @@ interface SearchProps {
   onSearch: () => void;
 }
 
-export default function Search({ searchQuery, setSearchQuery, onSearch }: SearchProps) {
+export default function Search({setSearchQuery, onSearch }: SearchProps) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onSearch();

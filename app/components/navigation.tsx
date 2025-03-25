@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import path from "path";
 
 export const Navigation = () => {
   const pathname = usePathname();

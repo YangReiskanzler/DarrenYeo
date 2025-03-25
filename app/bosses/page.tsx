@@ -5,8 +5,18 @@ import Link from "next/link";
 import Pagination from "../components/pagination";
 import Search from "../components/search";
 
-export default function bosses() {
-  const [bosses, setBosses] = useState<any[]>([]);
+interface Boss {
+    id: string;
+    name: string;
+    description: string;
+    location: string;
+    drops: string;
+    healthPoints: number;
+    image: string;
+}
+
+export default function Bosses() {
+  const [bosses, setBosses] = useState<Boss[]>([]);
   const [page, setPage] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -43,7 +53,7 @@ export default function bosses() {
       </h1>
 
       <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-        {bosses.map((boss: any) => (
+        {bosses.map((boss: Boss) => (
           <div
             key={boss.id}
             className="bg-black/80 border-2 border-gray-700 ml-1 mr-1 text-white p-2 rounded-lg shadow-md text-center"
